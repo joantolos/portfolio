@@ -5,6 +5,7 @@ import com.joantolos.portfolio.template.entity.Mail;
 import com.joantolos.portfolio.template.exception.FileManipulationException;
 import com.joantolos.portfolio.template.exception.MailServiceException;
 import com.joantolos.portfolio.template.mail.MailBuilder;
+import com.joantolos.portfolio.template.security.Decrypter;
 import com.joantolos.portfolio.template.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,12 +37,15 @@ public class MailSenderImpl implements MailSender {
     private String starttls;
     @Value("${mail.attach.file.extension}")
     private String attachedFileType;
-    
+
     @Autowired
     private FileUtils fileUtils;
     
     @Autowired
     MailBuilder mailBuilder;
+    
+    @Autowired
+    Decrypter decrypter;
 
     @PostConstruct
     public void init(){
@@ -87,7 +91,7 @@ public class MailSenderImpl implements MailSender {
             session = Session.getInstance(props,
                     new Authenticator() {
                         protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(userFrom, passwordFrom);
+                            return new PasswordAuthentication(userFrom, decrypter.decrypt(passwordFrom));
                         }
                     });
         }
