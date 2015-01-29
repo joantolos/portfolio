@@ -53,7 +53,7 @@ public class MailBuilderImpl implements MailBuilder {
     }
 
     private String buildHtmlContent(ContactMail contactMail) throws FileManipulationException {
-    	String body = null;
+    	String body;
     	
     	if(contactMail.isSuccess()){
 	        body = fileUtils.streamToString(this.getClass().getResourceAsStream(this.templateSuccessPath));
