@@ -1,8 +1,10 @@
 package com.joantolos.portfolio.template.mail.impl;
 
+import com.joantolos.portfolio.template.entity.ContactMail;
 import com.joantolos.portfolio.template.entity.Mail;
 import com.joantolos.portfolio.template.exception.FileManipulationException;
 import com.joantolos.portfolio.template.exception.MailServiceException;
+import com.joantolos.portfolio.template.mail.MailBuilder;
 import com.joantolos.portfolio.template.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +39,9 @@ public class MailSenderImpl implements MailSender {
     
     @Autowired
     private FileUtils fileUtils;
+    
+    @Autowired
+    MailBuilder mailBuilder;
 
     @PostConstruct
     public void init(){
@@ -51,11 +56,13 @@ public class MailSenderImpl implements MailSender {
         props.setProperty("mail.smtp.quitwait", "false");
     }
 
-    public Message sendMail(Mail mail) throws MailServiceException {
+    public Message sendMail(ContactMail contactMail) throws MailServiceException {
         Message message;
+        
         try {
+            Mail mail = this.mailBuilder.buildMail(contactMail);
             Session session = this.getSession();
-
+            
             message = new MimeMessage(session);
             message.setFrom(new InternetAddress(this.userFrom));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail.getTo()));
