@@ -29,7 +29,7 @@ public class EncrypterDecrypterTest {
     
     @Before
     public void setUp(){
-        this.somePassword="businessMailSender3";
+        this.somePassword="1234";
     }
     
     @After
