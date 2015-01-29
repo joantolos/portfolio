@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="7" failures="0" name="com.joantolos.portfolio.template.FileUtilsTest" time="0.005" errors="0" skipped="1">
+<testsuite tests="7" failures="0" name="com.joantolos.portfolio.template.FileUtilsTest" time="0.001" errors="0" skipped="1">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\workarea\tools\jdk1.8.0_25\jre\bin"/>
@@ -71,6 +71,6 @@
   <testcase classname="com.joantolos.portfolio.template.FileUtilsTest" name="streamToByteArrayTest" time="0"/>
   <testcase classname="com.joantolos.portfolio.template.FileUtilsTest" name="streamToStringTest" time="0"/>
   <testcase classname="com.joantolos.portfolio.template.FileUtilsTest" name="closeBufferedReaderTest" time="0"/>
-  <testcase classname="com.joantolos.portfolio.template.FileUtilsTest" name="closeInputStreamTest" time="0.002"/>
-  <testcase classname="com.joantolos.portfolio.template.FileUtilsTest" name="byteArrayToInputStreamTest" time="0.002"/>
+  <testcase classname="com.joantolos.portfolio.template.FileUtilsTest" name="closeInputStreamTest" time="0"/>
+  <testcase classname="com.joantolos.portfolio.template.FileUtilsTest" name="byteArrayToInputStreamTest" time="0"/>
 </testsuite>

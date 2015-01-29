@@ -40,7 +40,7 @@ public class MailBuilderImpl implements MailBuilder {
     }
 
     private String buildSubject(ContactMail contactMail) {
-        StringBuilder sb = new StringBuilder("Here we have the email about ");
+        StringBuilder sb = new StringBuilder("New contact mail from "+contactMail.getUserName());
         sb.append(contactMail.getTopic());
         return sb.toString();
     }

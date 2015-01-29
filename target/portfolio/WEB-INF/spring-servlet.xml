@@ -8,12 +8,9 @@
                     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
 	<mvc:annotation-driven />
-	<context:component-scan base-package="com.joantolos" />
+	<context:component-scan base-package="com.joantolos.portfolio" />
 
-	<context:property-placeholder location="WEB-INF/conf/wc/portfolio.properties"/>
-	<!--
-	<context:property-placeholder location="WEB-INF/conf/pro/portfolio.properties"/>
-	-->
+	<context:property-placeholder location="WEB-INF/conf/portfolio.properties"/>
 
 	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
