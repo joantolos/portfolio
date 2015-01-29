@@ -24,8 +24,16 @@ public class ContactController {
     MailSender mailSender;
 
     @RequestMapping(value = "/contact", method = RequestMethod.POST)
-    public void contact(final HttpServletRequest request) throws MailServiceException {
+    public void contact(final HttpServletRequest request, String name, String phone, String email, String message) throws MailServiceException {
         ContactMail contactMail =  new ContactMail();
+        contactMail.setUserName(name);
+        contactMail.setSuccess(true);
+        contactMail.setUserMailAddress(email);
+        contactMail.setAttach(null);
+        contactMail.setMailDate("one date");
+        contactMail.setMailId(1L);
+        contactMail.setTopic(message);
+        
         this.mailSender.sendMail(contactMail);
     }
 }
