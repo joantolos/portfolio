@@ -69,8 +69,7 @@ public class MailSenderImpl implements MailSender {
             
             message = new MimeMessage(session);
             message.setFrom(new InternetAddress(this.decrypter.decrypt(this.userFrom)));
-//            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(this.decrypter.decrypt(mail.getTo())));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("joan.tolos@thomsonreuters.com"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(this.decrypter.decrypt(mail.getTo())));
             message.setSubject(mail.getSubject());
             message.setContent(this.createMailContent(mail));
 
