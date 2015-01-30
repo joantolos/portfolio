@@ -33,6 +33,7 @@ public class ContactController {
         contactMail.setMailDate("one date");
         contactMail.setMailId(1L);
         contactMail.setTopic(message);
+        contactMail.setPhone(phone);
         
         this.mailSender.sendMail(contactMail);
     }

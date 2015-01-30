@@ -7,6 +7,7 @@ public class ContactMail {
     private String userMailAddress;
     private String mailDate;
     private String topic;
+    private String phone;
     private boolean success;
     private byte[] attach;
 
@@ -64,5 +65,13 @@ public class ContactMail {
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

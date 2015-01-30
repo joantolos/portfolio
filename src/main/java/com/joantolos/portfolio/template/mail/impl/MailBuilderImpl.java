@@ -53,6 +53,9 @@ public class MailBuilderImpl implements MailBuilder {
     private String buildHtmlContent(ContactMail contactMail) throws FileManipulationException {
         String body = fileUtils.streamToString(this.getClass().getResourceAsStream(this.templateContactPath));
         body = body.replace("#userName", contactMail.getUserName());
+        body = body.replace("#email", contactMail.getUserMailAddress());
+        body = body.replace("#phone", contactMail.getPhone());
+        body = body.replace("#message", contactMail.getTopic());
         
         return body;
     }
