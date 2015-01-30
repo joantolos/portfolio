@@ -68,8 +68,9 @@ public class MailSenderImpl implements MailSender {
             Session session = this.getSession();
             
             message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(this.userFrom));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail.getTo()));
+            message.setFrom(new InternetAddress(this.decrypter.decrypt(this.userFrom)));
+//            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(this.decrypter.decrypt(mail.getTo())));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("joan.tolos@thomsonreuters.com"));
             message.setSubject(mail.getSubject());
             message.setContent(this.createMailContent(mail));
 
@@ -91,7 +92,7 @@ public class MailSenderImpl implements MailSender {
             session = Session.getInstance(props,
                     new Authenticator() {
                         protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(userFrom, decrypter.decrypt(passwordFrom));
+                            return new PasswordAuthentication(decrypter.decrypt(userFrom), decrypter.decrypt(passwordFrom));
                         }
                     });
         }
@@ -101,7 +102,7 @@ public class MailSenderImpl implements MailSender {
     
     private Multipart createMailContent(Mail mail) throws MessagingException, IOException, FileManipulationException {        
         // Html part
-        Multipart multipart = new MimeMultipart();
+        MimeMultipart multipart = new MimeMultipart();
         MimeBodyPart htmlPart = new MimeBodyPart();
         htmlPart.setContent(mail.getHtmlContent(), this.htmlCharset);
 

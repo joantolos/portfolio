@@ -13,14 +13,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class MailBuilderImpl implements MailBuilder {
 
-    @Value("${mail.templates.success.path}")
-    private String templateSuccessPath;
-    
-    @Value("${mail.templates.error.path}")
-    private String templateErrorPath;
-
+    @Value("${mail.templates.contact.path}")
+    private String templateContactPath;
     @Value("${mail.attach.file.extension}")
     private String attachFileExtension;
+    @Value("${mail.user.to}")
+    private String userTo;
 
     @Autowired
     FileUtils fileUtils;
@@ -31,7 +29,7 @@ public class MailBuilderImpl implements MailBuilder {
     public Mail buildMail(ContactMail contactMail) throws FileManipulationException {
         Mail mail = new Mail();
         mail.setSubject(this.buildSubject(contactMail));
-        mail.setTo(contactMail.getUserMailAddress());
+        mail.setTo(this.userTo);
         mail.setAttachName(this.buildAttachName(contactMail));
         mail.setHtmlContent(this.buildHtmlContent(contactMail));
         mail.setAttach(contactMail.getAttach());
@@ -40,8 +38,8 @@ public class MailBuilderImpl implements MailBuilder {
     }
 
     private String buildSubject(ContactMail contactMail) {
-        StringBuilder sb = new StringBuilder("New contact mail from "+contactMail.getUserName());
-        sb.append(contactMail.getTopic());
+        StringBuilder sb = new StringBuilder("New contact mail from ");
+        sb.append(contactMail.getUserName());
         return sb.toString();
     }
 
@@ -53,15 +51,7 @@ public class MailBuilderImpl implements MailBuilder {
     }
 
     private String buildHtmlContent(ContactMail contactMail) throws FileManipulationException {
-    	String body;
-    	
-    	if(contactMail.isSuccess()){
-	        body = fileUtils.streamToString(this.getClass().getResourceAsStream(this.templateSuccessPath));
-    	}else{
-    		body = fileUtils.streamToString(this.getClass().getResourceAsStream(this.templateErrorPath));
-    		body = body.replace("#errorMessage","ERROR!!");
-    	}
-
+        String body = fileUtils.streamToString(this.getClass().getResourceAsStream(this.templateContactPath));
         body = body.replace("#userName", contactMail.getUserName());
         
         return body;
